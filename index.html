@@ -152,62 +152,62 @@
 			    },
 			  	data = {
 			    	September: {
-			    		Stephen: {
-			    			'12': half,
-			    			'13': flex,
-			    			'14': flex,
-			    			'15': work,
-			    			'16': away,
-			    			'17': away,
-			    			'18': away,
-			    			'19': away,
-			    			'20': away,
-			    			'21': flex,
-			    			'22': work,
-			    			'23': free,
-			    			'24': free,
-			    			'25': free,
-			    			'26': half,
-			    			'27': flex,
-			    			'28': flex,
-			    			'29': work,
-			    			'30': free,
-			    			'1': free,
-			    			'2': free,
-			    			'3': half,
-			    			'4': flex,
-			    			'5': flex,
-			    			'6': free,
-			    			'7': free
-			    		},
-			    		Marco: {
-			    			'12': marco,
-			    			'13': marco,
-			    			'14': marco,
-			    			'15': marco,
-			    			'16': marco,
-			    			'17': marco,
-			    			'18': marco,
-			    			'19': marco,
-			    			'20': marco,
-			    			'21': marco,
-			    			'22': marco,
-			    			'23': marco,
-			    			'24': marco,
-			    			'25': marco,
-			    			'26': marco,
-			    			'27': marco,
-			    			'28': marco,
-			    			'29': marco,
-			    			'30': marco,
-			    			'1':  marco,
-			    			'2':  marco,
-			    			'3':  marco,
-			    			'4':  marco,
-			    			'5':  marco,
-			    			'6':  marco,
-			    			'7':  marco,
-			    		}
+			    		Stephen: [
+			    			{date:12, hours: half},
+			    			{date:13, hours: flex},
+			    			{date:14, hours: flex},
+			    			{date:15, hours: work},
+			    			{date:16, hours: away},
+			    			{date:17, hours: away},
+			    			{date:18, hours: away},
+			    			{date:19, hours: away},
+			    			{date:20, hours: away},
+			    			{date:21, hours: flex},
+			    			{date:22, hours: work},
+			    			{date:23, hours: free},
+			    			{date:24, hours: free},
+			    			{date:25, hours: free},
+			    			{date:26, hours: half},
+			    			{date:27, hours: flex},
+			    			{date:28, hours: flex},
+			    			{date:29, hours: work},
+			    			{date:30, hours: free},
+			    			{date:1,  hours: free},
+			    			{date:2,  hours: free},
+			    			{date:3,  hours: half},
+			    			{date:4,  hours: flex},
+			    			{date:5,  hours: flex},
+			    			{date:6,  hours: free},
+			    			{date:7,  hours: free}
+			    		],
+			    		Marco: [
+			    			{date:12, hours: marco},
+			    			{date:13, hours: marco},
+			    			{date:14, hours: marco},
+			    			{date:15, hours: marco},
+			    			{date:16, hours: marco},
+			    			{date:17, hours: marco},
+			    			{date:18, hours: marco},
+			    			{date:19, hours: marco},
+			    			{date:20, hours: marco},
+			    			{date:21, hours: marco},
+			    			{date:22, hours: marco},
+			    			{date:23, hours: marco},
+			    			{date:24, hours: marco},
+			    			{date:25, hours: marco},
+			    			{date:26, hours: marco},
+			    			{date:27, hours: marco},
+			    			{date:28, hours: marco},
+			    			{date:29, hours: marco},
+			    			{date:30, hours: marco},
+			    			{date:1,  hours: marco},
+			    			{date:2,  hours: marco},
+			    			{date:3,  hours: marco},
+			    			{date:4,  hours: marco},
+			    			{date:5,  hours: marco},
+			    			{date:6,  hours: marco},
+			    			{date:7,  hours: marco}
+			    		]
 			    	}
 			    	
 			    };
@@ -226,11 +226,13 @@
 						html1 = '<thead><tr><td>times</td>';
 						html2 = '<tr><td>'+times+'</td>'
 						
-						for (date in data[month][frood]) {
+						for (entry in data[month][frood]) {
+							date = data[month][frood][entry].date;
+							
 							html1 += '<td>'+date+'<br/><small>'+days[date]+'</small></td>';
 							html2 += jQuery.render(day, {
 								day: days[date],
-								hours: days[date] === 'sat' || days[date] === 'sun' ? '' : data[month][frood][date]
+								hours: days[date] === 'sat' || days[date] === 'sun' ? '' : data[month][frood][entry].hours
 							});
 						}
 						
