@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="author" content="">
+	<meta name="description" content="">
+	
+	<title>Title</title>
+	
+	<script>document.documentElement.className = 'js';</script>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<!-- Force latest IE rendering engine & Chrome Frame -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<!-- Make IE recognise HTML5 elements for styling -->
+	<!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!-- Disable image toolbar in IE6 -->
+	<!--[if lte IE 6]><meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+	
+	<link rel="icon" type="image/png" href="images/favicon.png" />
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	
+	<link rel="stylesheet" type="text/css" href="css/template.reset.css" />
+	<link rel="stylesheet" type="text/css" href="css/template.typography.css" />
+	<link rel="stylesheet" type="text/css" href="css/template.typography.12_20.css" />
+	<link rel="stylesheet" type="text/css" href="css/template.forms.css" />
+	<link rel="stylesheet" type="text/css" href="css/template.classes.css" />
+	<!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="css/template.ie.css" /><![endif]-->
+	<!--[if IE 8]><link rel="stylesheet" type="text/css" href="css/template.ie8.css" /><![endif]-->
+	<!--[if IE 7]><link rel="stylesheet" type="text/css" href="css/template.ie7.css" /><![endif]-->
+	<!--[if IE 6]><link rel="stylesheet" type="text/css" href="css/template.ie6.css" /><![endif]-->
+	
+	<style>
+		td {
+			width: 2em;
+			overflow: hidden;
+			padding: 0;
+		}
+		
+		.month {
+			background-color:        rgb(240,241,242);
+		}
+		
+		.month td {
+			border-right:  1px solid rgb(240,241,242);
+			border-bottom: 1px solid rgb(240,241,242);
+		}
+		
+		.month thead td {
+			background-color:        rgb(240,241,242);
+			text-align: center;
+		}
+		
+		.times,
+		.hours {
+			width: 100%;
+			height: 80px;
+			margin-bottom: 0;
+		}
+		
+		.times {
+			width: 6em;
+			font-size: 10px;
+		}
+		
+		.hours td {
+			border-right: 0;
+			border-bottom: 0;
+		}
+		
+		.free { background-color: rgb(191,245,63); }
+		.flex { background-color: rgb(255,225,63); }
+		.work { background-color: rgb(255,127,0); }
+		.away { background-color: transparent; }
+		
+		.swatch {
+			display: inline-block;
+			width: 2em;
+			height: 1.6667em;
+			margin-right: 0.5em;
+			vertical-align: top;
+		}
+		
+		.legend_index > li {
+			margin-right: 1em;
+		}
+		
+		.legend_index {
+			margin-bottom: 2em;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Disponibilité</h1>
+	<ul class="horizontal legend_index index">
+		<li><span class="free swatch"></span>available</li>
+		<li><span class="flex swatch"></span>working flexibly - available for short meetings</li>
+		<li><span class="work swatch"></span>unavailable</li>
+	</ul>
+	
+	<!--[if IE 6]><script src="iepngfix/iepngfix_tilebg.js"></script><![endif]-->
+	<script src="js/js.extensions.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script>!window.jQuery && document.write(unescape('%3Cscript src="js/jquery.js"%3E%3C/script%3E'));</script>
+	<script src="js/jquery.extensions.js"></script>
+	<script src="js/jquery.event.activate.js"></script>
+	<script src="js/jquery.validator.js"></script>
+	<script src="js/jquery.transitions.js"></script>
+	<script src="js/jquery.loading.js"></script>
+	<script src="js/jquery.popup.js"></script>
+	<script src="js/template.ui.js"></script>
+	<script src="js/js.details.js"></script>
+	
+	<script type="text/javascript">
+		(function(){
+			var day = '<td class"{{day}}_day day">{{hours}}</td>',
+			    times = '<table class="times"><tr><td>09:00-10:00</td></tr><tr><td>10:00-13:00</td></tr><tr><td>13:00-17:00</td></tr><tr><td>17:00-19:00</td></tr></table>'
+			    free = '<table class="hours"><tr><td class="free">&nbsp;</td></tr></table>',
+			    flex = '<table class="hours"><tr><td class="flex">&nbsp;</td></tr></table>',
+			    half = '<table class="hours"><tr><td class="free">&nbsp;</td></tr><tr><td class="flex">&nbsp;</td></tr></table>',
+			    work = '<table class="hours"><tr><td class="work">&nbsp;</td></tr></table>',
+			    away = '<table class="hours"><tr><td class="away">&nbsp;</td></tr></table>',
+			  	marco = '<table class="hours"><tr><td class="flex">&nbsp;</td></tr><tr><td class="work">&nbsp;</td></tr><tr><td class="work">&nbsp;</td></tr><tr><td class="flex">&nbsp;</td></tr></table>',
+			    days = {
+			    	12: 'mon',
+			    	13: 'tue',
+			    	14: 'wed',
+			    	15: 'thu',
+			    	16: 'fri',
+			    	17: 'sat',
+			    	18: 'sun',
+			    	19: 'mon',
+			    	20: 'tue',
+			    	21: 'wed',
+			    	22: 'thu',
+			    	23: 'fri',
+			    	24: 'sat',
+			    	25: 'sun',
+			    	26: 'mon',
+			    	27: 'tue',
+			    	28: 'wed',
+			    	29: 'thu',
+			    	30: 'fri',
+			    	1:  'sat',
+			    	2:  'sun',
+			    	3:  'mon',
+			    	4:  'tue',
+			    	5:  'wed',
+			    	6:  'thu',
+			    	7:  'fri'
+			    },
+			  	data = {
+			    	September: {
+			    		Stephen: {
+			    			12: half,
+			    			13: flex,
+			    			14: flex,
+			    			15: work,
+			    			16: away,
+			    			17: away,
+			    			18: away,
+			    			19: away,
+			    			20: away,
+			    			21: flex,
+			    			22: work,
+			    			23: free,
+			    			24: free,
+			    			25: free,
+			    			26: half,
+			    			27: flex,
+			    			28: flex,
+			    			29: work,
+			    			30: free,
+			    			1: free,
+			    			2: free,
+			    			3: half,
+			    			4: flex,
+			    			5: flex,
+			    			6: free,
+			    			7: free
+			    		},
+			    		Marco: {
+			    			12: marco,
+			    			13: marco,
+			    			14: marco,
+			    			15: marco,
+			    			16: marco,
+			    			17: marco,
+			    			18: marco,
+			    			19: marco,
+			    			20: marco,
+			    			21: marco,
+			    			22: marco,
+			    			23: marco,
+			    			24: marco,
+			    			25: marco,
+			    			26: marco,
+			    			27: marco,
+			    			28: marco,
+			    			29: marco,
+			    			30: marco,
+			    			1:  marco,
+			    			2:  marco,
+			    			3:  marco,
+			    			4:  marco,
+			    			5:  marco,
+			    			6:  marco,
+			    			7:  marco,
+			    		}
+			    	}
+			    	
+			    };
+						
+			jQuery(document).ready(function(){
+				var body = jQuery('body'),
+						html = '',
+						monthElem,
+				    month, frood, date;
+				
+				for (month in data) {
+					
+					for (frood in data[month]) {
+						body.append('<h2>'+frood+'</h2>');
+						monthElem = jQuery('<table class="month"/>');
+						html1 = '<thead><tr><td>times</td>';
+						html2 = '<tr><td>'+times+'</td>'
+						
+						for (date in data[month][frood]) {
+							html1 += '<td>'+date+'<br/><small>'+days[date]+'</small></td>';
+							html2 += jQuery.render(day, {
+								day: days[date],
+								hours: days[date] === 'sat' || days[date] === 'sun' ? '' : data[month][frood][date]
+							});
+						}
+						
+						html1 += '</tr></thead>';
+						html2 += '</tr>';
+						
+						monthElem.html(html1+html2)
+						
+						body.append(monthElem);
+					}
+				}
+				
+			});
+		})();
+	</script>
+</body>
+</html>
